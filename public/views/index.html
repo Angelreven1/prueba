@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager de Tenis Inteligente - Login</title>
+    <link rel="stylesheet" href="../css/style.css"> </head>
+<body>
+
+    <div class="container-flex">
+        
+        <div class="box">
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="loginCorreo" placeholder="ejemplo@tenis.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="loginContrasena" placeholder="********" required>
+                </div>
+                <button type="submit">Entrar al Sistema</button>
+            </form>
+            <p id="msgLogin"></p>
+        </div>
+
+        <div class="box">
+            <h2>Crear Usuario</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="regNombre" placeholder="Juan Pérez" required>
+                </div>
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="regCorreo" placeholder="operario@tenis.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="regContrasena" placeholder="Mínimo 6 caracteres" required>
+                </div>
+                <div class="form-group">
+                    <label>Rol en la Fábrica</label>
+                    <select id="regRol" required>
+                        <option value="user">Operario de Producción (User)</option>
+                        <option value="admin">Administrador General (Admin)</option>
+                    </select>
+                </div>
+                <button type="submit">Registrar Personal</button>
+            </form>
+            <p id="msgRegister"></p>
+        </div>
+
+    </div>
+
+    <script src="../js/login.js"></script>
+</body>
+</html>

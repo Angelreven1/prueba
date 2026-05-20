@@ -1,0 +1,122 @@
+/* public/css/styles.css */
+
+/* 1. Configuración General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #111827; /* Fondo oscuro moderno */
+    color: #f3f4f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* 2. Contenedor de los Formularios */
+.container-flex {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    max-width: 900px;
+    width: 100%;
+}
+
+/* 3. Las Cajas de Login y Registro */
+.box {
+    background-color: #1f2937; /* Gris oscuro para las tarjetas */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    flex: 1;
+    min-width: 320px;
+    border: 1px solid #374151;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.box:hover {
+    border-color: #3b82f6; /* Brillo azul al pasar el mouse */
+}
+
+h2 {
+    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    color: #ffffff;
+    border-bottom: 2px solid #3b82f6; /* Subrayado azul deportivo */
+    padding-bottom: 10px;
+}
+
+/* 4. Estilos de los Formularios e Inputs */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #111827;
+    border: 1px solid #4b5563;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+    border-color: #3b82f6;
+}
+
+/* 5. Botones Deportivos */
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #3b82f6; /* Azul eléctrico */
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+    background-color: #2563eb;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* 6. Mensajes de Estado */
+p {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.error-msg {
+    color: #ef4444; /* Rojo moderno */
+}
+
+.success-msg {
+    color: #10b981; /* Verde moderno */
+}
