@@ -8,11 +8,11 @@
 </head>
 <body>
 
-    <div class="main-container">
+    <div class="flex-container">
         
-        <div class="form-container">
+        <div class="form-card">
             <h2>Iniciar Sesión</h2>
-            <hr>
+            <hr class="linea-azul">
             <form id="form-login">
                 <div class="form-group">
                     <label for="input-correo">Correo Electrónico</label>
@@ -25,13 +25,13 @@
                 </div>
 
                 <button type="submit" class="btn-submit">Entrar al Sistema</button>
-                <div id="mensaje-error" class="error-text" style="color: #ff4d4d; font-weight: bold; margin-top: 15px; text-align: center;"></div>
+                <div id="mensaje-error" class="error-text"></div>
             </form>
         </div>
 
-        <div class="form-container">
+        <div class="form-card">
             <h2>Crear Usuario</h2>
-            <hr>
+            <hr class="linea-azul">
             <form id="form-registro">
                 <div class="form-group">
                     <label for="reg-nombre">Nombre Completo</label>
@@ -51,13 +51,13 @@
                 <div class="form-group">
                     <label for="reg-rol">Rol en la Fábrica</label>
                     <select id="reg-rol">
-                        <option value="User">Operario de Producción (User)</option>
+                        <option value="User">Operario de Production (User)</option>
                         <option value="Admin">Administrador del Sistema (Admin)</option>
                     </select>
                 </div>
 
                 <button type="submit" class="btn-submit btn-register">Registrar Personal</button>
-                <div id="mensaje-error-registro" class="error-text" style="color: #ff4d4d; font-weight: bold; margin-top: 15px; text-align: center;"></div>
+                <div id="mensaje-error-registro" class="error-text"></div>
             </form>
         </div>
 

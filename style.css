@@ -1,108 +1,120 @@
 /* =========================================================================
-   DISEÑO GENERAL DE LA PÁGINA
+   DISEÑO OSCURO PERSONALIZADO - PARALELO
    ========================================================================= */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f9;
+    background-color: #111b27; /* Tu fondo oscuro */
     margin: 0;
     padding: 40px 20px;
-    color: #333;
+    color: #ffffff;
 }
 
-/* Contenedor principal que fuerza el diseño "uno al lado del otro" */
-.main-container {
-    display: table;
-    width: 100%;
-    max-width: 1000px;
+/* El truco mágico: Fuerza que los hijos se pongan uno al lado del otro */
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px; /* Separación entre tarjetas */
+    max-width: 1100px;
     margin: 0 auto;
-    border-collapse: separate;
-    border-spacing: 30px 0; /* Espaciado elegante entre formularios */
+    flex-wrap: wrap; /* Si la pantalla es muy chica, se acomodan solos */
 }
 
-/* Cada uno de los bloques de formulario actúa como una columna */
-.form-container {
-    display: table-cell;
-    width: 50%;
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    vertical-align: top; /* Alinea ambos formularios por la parte de arriba */
+/* Tarjetas individuales de los formularios */
+.form-card {
+    background-color: #192535; /* Color de tus contenedores */
+    padding: 35px;
+    border-radius: 12px;
+    border: 1px solid #23354d;
+    width: 100%;
+    max-width: 450px; /* Tamaño ideal a lo ancho */
+    box-sizing: border-box;
 }
 
-/* Títulos y separadores */
+/* Títulos y líneas de tu diseño */
 h2 {
     margin-top: 0;
-    color: #2c3e50;
-    font-size: 22px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
-hr {
+.linea-azul {
     border: 0;
     height: 2px;
-    background: #dfe4ea;
-    margin-bottom: 20px;
+    background: #3b82f6; /* Tu línea azul brillante */
+    margin-bottom: 25px;
 }
 
-/* Elementos de los formularios */
+/* Grupos y etiquetas */
 .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
 label {
     display: block;
-    margin-bottom: 6px;
-    font-weight: 600;
+    margin-bottom: 8px;
     font-size: 14px;
-    color: #57606f;
+    color: #94a3b8; /* Gris claro para tus textos */
 }
 
+/* Entradas de texto e inputs estilizados como tu captura */
 input[type="text"],
 input[type="email"],
 input[type="password"],
 select {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
+    padding: 12px;
+    background-color: #111b27;
+    border: 1px solid #2d3d52;
+    border-radius: 6px;
+    color: #ffffff;
     font-size: 14px;
-    box-sizing: border-box; /* Evita que los inputs se salgan de su contenedor */
+    box-sizing: border-box;
+    transition: border-color 0.2s;
 }
 
 input:focus, select:focus {
     outline: none;
-    border-color: #3498db;
+    border-color: #3b82f6;
 }
 
-/* Botones personalizados */
+/* Botones como los de tu interfaz */
 .btn-submit {
     width: 100%;
-    padding: 12px;
-    background-color: #3498db;
+    padding: 14px;
+    background-color: #3b82f6; /* Tu azul de botón */
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     color: white;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background-color 0.2s;
     margin-top: 10px;
 }
 
 .btn-submit:hover {
-    background-color: #2980b9;
+    background-color: #2563eb;
 }
 
-/* Color diferente para distinguir el botón de registro */
+/* Botón de registro con tono verde sutil para diferenciar */
 .btn-register {
-    background-color: #2ecc71;
+    background-color: #10b981;
 }
 
 .btn-register:hover {
-    background-color: #27ae60;
+    background-color: #059669;
 }
 
-/* Textos de error */
+/* Errores */
 .error-text {
-    min-height: 20px; /* Evita que el contenedor salte cuando aparece el error */
+    color: #ef4444;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    min-height: 20px;
 }
