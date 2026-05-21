@@ -1,3 +1,6 @@
+-- =========================================================================
+-- SCHEMA DEFINITIVO PARA SMART TENNIS MANAGER (SQLite)
+-- =========================================================================
 
 -- 1. TABLA DE USUARIOS
 CREATE TABLE IF NOT EXISTS usuarios (
@@ -15,7 +18,7 @@ CREATE TABLE IF NOT EXISTS proveedores (
     contacto TEXT,
     telefono TEXT,
     email TEXT
-)
+);
 
 -- 3. TABLA DE CATALOGO DE PRODUCTOS (Modelos de Tenis)
 CREATE TABLE IF NOT EXISTS productos (
@@ -26,7 +29,7 @@ CREATE TABLE IF NOT EXISTS productos (
     costo_produccion REAL NOT NULL,
     proveedor_id INTEGER,
     FOREIGN KEY (proveedor_id) REFERENCES proveedores(id) ON DELETE SET NULL
-)
+);
 
 -- 4. TABLA DE INVENTARIO GENERAL (Existencias físicas por Talla/Color)
 CREATE TABLE IF NOT EXISTS inventario (
@@ -36,7 +39,7 @@ CREATE TABLE IF NOT EXISTS inventario (
     color TEXT NOT NULL,
     cantidad INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (producto_id) REFERENCES productos(id) ON DELETE CASCADE
-)
+);
 
 -- 5. TABLA DE ÓRDENES DE PRODUCCIÓN (Historial de fabricación)
 CREATE TABLE IF NOT EXISTS ordenes_produccion (
@@ -48,7 +51,7 @@ CREATE TABLE IF NOT EXISTS ordenes_produccion (
     estado TEXT NOT NULL DEFAULT 'Completado',
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
     FOREIGN KEY (producto_id) REFERENCES productos(id)
-)
+);
 
 -- 6. TABLA DE VENTAS (Cabecera del Ticket)
 CREATE TABLE IF NOT EXISTS ventas (
@@ -56,7 +59,7 @@ CREATE TABLE IF NOT EXISTS ventas (
     cliente_nombre TEXT NOT NULL DEFAULT 'Cliente General',
     fecha TEXT NOT NULL DEFAULT (DATE('now')),
     total REAL NOT NULL DEFAULT 0.0
-)
+);
 
 -- 7. TABLA DE DETALLE DE VENTAS (Renglones del Ticket)
 CREATE TABLE IF NOT EXISTS detalle_ventas (
@@ -67,4 +70,4 @@ CREATE TABLE IF NOT EXISTS detalle_ventas (
     precio_unitario REAL NOT NULL,
     FOREIGN KEY (venta_id) REFERENCES ventas(id) ON DELETE CASCADE,
     FOREIGN KEY (inventario_id) REFERENCES inventario(id)
-)
+);
