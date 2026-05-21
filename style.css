@@ -1,122 +1,108 @@
-/* public/css/styles.css */
-
-/* 1. Configuración General */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
+/* =========================================================================
+   DISEÑO GENERAL DE LA PÁGINA
+   ========================================================================= */
 body {
-    background-color: #111827; /* Fondo oscuro moderno */
-    color: #f3f4f6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 40px 20px;
+    color: #333;
 }
 
-/* 2. Contenedor de los Formularios */
-.container-flex {
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-    align-items: stretch;
-    flex-wrap: wrap;
-    max-width: 900px;
+/* Contenedor principal que fuerza el diseño "uno al lado del otro" */
+.main-container {
+    display: table;
     width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 30px 0; /* Espaciado elegante entre formularios */
 }
 
-/* 3. Las Cajas de Login y Registro */
-.box {
-    background-color: #1f2937; /* Gris oscuro para las tarjetas */
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    flex: 1;
-    min-width: 320px;
-    border: 1px solid #374151;
-    transition: transform 0.2s, border-color 0.2s;
+/* Cada uno de los bloques de formulario actúa como una columna */
+.form-container {
+    display: table-cell;
+    width: 50%;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    vertical-align: top; /* Alinea ambos formularios por la parte de arriba */
 }
 
-.box:hover {
-    border-color: #3b82f6; /* Brillo azul al pasar el mouse */
-}
-
+/* Títulos y separadores */
 h2 {
-    margin-bottom: 25px;
-    font-size: 24px;
-    font-weight: 600;
-    text-align: center;
-    color: #ffffff;
-    border-bottom: 2px solid #3b82f6; /* Subrayado azul deportivo */
-    padding-bottom: 10px;
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 22px;
 }
 
-/* 4. Estilos de los Formularios e Inputs */
-.form-group {
+hr {
+    border: 0;
+    height: 2px;
+    background: #dfe4ea;
     margin-bottom: 20px;
+}
+
+/* Elementos de los formularios */
+.form-group {
+    margin-bottom: 18px;
 }
 
 label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
+    font-weight: 600;
     font-size: 14px;
-    color: #9ca3af;
+    color: #57606f;
 }
 
-input, select {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
     width: 100%;
-    padding: 12px 16px;
-    background-color: #111827;
-    border: 1px solid #4b5563;
-    border-radius: 6px;
-    color: #ffffff;
-    font-size: 15px;
-    outline: none;
-    transition: border-color 0.2s;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box; /* Evita que los inputs se salgan de su contenedor */
 }
 
 input:focus, select:focus {
-    border-color: #3b82f6;
+    outline: none;
+    border-color: #3498db;
 }
 
-/* 5. Botones Deportivos */
-button {
+/* Botones personalizados */
+.btn-submit {
     width: 100%;
-    padding: 14px;
-    background-color: #3b82f6; /* Azul eléctrico */
-    color: #ffffff;
+    padding: 12px;
+    background-color: #3498db;
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
+    color: white;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+    transition: background 0.2s;
+    margin-top: 10px;
 }
 
-button:hover {
-    background-color: #2563eb;
+.btn-submit:hover {
+    background-color: #2980b9;
 }
 
-button:active {
-    transform: scale(0.98);
+/* Color diferente para distinguir el botón de registro */
+.btn-register {
+    background-color: #2ecc71;
 }
 
-/* 6. Mensajes de Estado */
-p {
-    margin-top: 15px;
-    font-size: 14px;
-    text-align: center;
-    font-weight: 500;
+.btn-register:hover {
+    background-color: #27ae60;
 }
 
-.error-msg {
-    color: #ef4444; /* Rojo moderno */
-}
-
-.success-msg {
-    color: #10b981; /* Verde moderno */
+/* Textos de error */
+.error-text {
+    min-height: 20px; /* Evita que el contenedor salte cuando aparece el error */
 }
