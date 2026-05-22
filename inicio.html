@@ -70,10 +70,27 @@
             <div id="dashboard-admin" style="display: none;">
                 
                 <section class="admin-quick-actions" style="margin-bottom: 25px;">
-                    <button class="btn-action" onclick="alert('Abriendo Gestión de Usuarios...')">👥 Gestión de Personal / Usuarios</button>
-                    <button class="btn-action" onclick="alert('Abriendo Control de Materia Prima...')">📦 Control de Materia Prima</button>
+                    <button class="btn-action" onclick="abrirGestionUsuarios()">👥 Gestión de Personal / Usuarios</button>
+                    <button class="btn-action" onclick="abrirControlMateriaPrima()">📦 Control de Materia Prima</button>
                     <button class="btn-action btn-success" onclick="abrirModalLote()">➕ Registrar Lote de Producción</button>
                 </section>
+
+                <div id="contenedor-tablas-admin" style="margin-top: 20px; margin-bottom: 25px; display: none;" class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 id="titulo-tabla-dinamica" style="margin: 0; color: #38bdf8;">Tabla de Datos</h3>
+                        <button onclick="cerrarTablaDinamica()" style="background: #ef4444; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85rem;">✕ Cerrar Vista</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="data-table" id="tabla-dinamica-admin">
+                            <thead>
+                                <tr id="encabezado-tabla-dinamica">
+                                    </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
 
                 <section class="stats-grid-advanced">
                     <div class="card alert-card">

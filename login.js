@@ -4,7 +4,7 @@ fetch(`${BACKEND_URL}/ping`)
     .then(() => console.log("Servidor en la nube conectado con éxito."))
     .catch((err) => console.log("Despertando servidor en Render...", err));
 
-// LOGICA PARA INICIAR SESIÓN
+// LÓGICA PARA INICIAR SESIÓN
 document.getElementById('form-login').addEventListener('submit', (e) => {
     e.preventDefault();
     const correo = document.getElementById('input-correo').value;
@@ -21,10 +21,11 @@ document.getElementById('form-login').addEventListener('submit', (e) => {
     })
     .then(data => {
         alert("¡Inicio de sesión correcto!");
+        
         // ========================================================
-        // 🚀 AQUÍ COLOCAS LAS LÍNEAS PARA GUARDAR EN EL NAVEGADOR
+        // 🚀 SE AGREGA EL ALMACENAMIENTO COMPLETO DE VARIABLES Real
         // ========================================================
-        // Guardamos el rol y el nombre que el servidor de Render nos devuelve en 'data'
+        localStorage.setItem('usuario_id', data.usuario.id); // 🌟 ¡Importante para tus órdenes!
         localStorage.setItem('usuario_rol', data.usuario.rol); 
         localStorage.setItem('usuario_nombre', data.usuario.nombre);
 
@@ -36,7 +37,7 @@ document.getElementById('form-login').addEventListener('submit', (e) => {
     });
 });
 
-// LOGICA PARA CREAR USUARIO
+// LÓGICA PARA CREAR USUARIO
 document.getElementById('form-registro').addEventListener('submit', (e) => {
     e.preventDefault();
     const nombre = document.getElementById('reg-nombre').value;
@@ -62,7 +63,7 @@ document.getElementById('form-registro').addEventListener('submit', (e) => {
     });
 });
 
-// LOGICA PARA REGISTRAR PRODUCTO NUEVO
+// LÓGICA PARA REGISTRAR PRODUCTO NUEVO
 const formTenis = document.getElementById('form-nuevo-tenis');
 if (formTenis) {
     formTenis.addEventListener('submit', (e) => {
