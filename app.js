@@ -8,6 +8,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// =========================================================================
+// CONFIGURACIÓN DE CONEXIÓN A MYSQL EN LA NUBE (AIVEN)
+// =========================================================================
+
 const pool = mysql.createPool({
     host: 'mysql-2cd04939-smart-tenis.j.aivencloud.com', 
     user: 'avnadmin',
@@ -185,6 +189,35 @@ app.get('/materiaprima', (req, res) => {
     pool.query(`SELECT * FROM materia_prima`, (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(results);
+    });
+});
+
+// ✨ LA RUTA QUE FALTABA: Lista para guardar y atrapar cualquier error limpiamente ✨
+app.post('/materiaprima', (req, res) => {
+    const { material, cantidad_stock, unidad_medida } = req.body;
+    
+    // Intentamos guardar con la columna 'nombre'
+    const sql = `INSERT INTO materia_prima (nombre, cantidad_stock, unidad_medida) VALUES (?, ?, ?)`;
+    
+    pool.query(sql, [material, cantidad_stock, unidad_medida], (err, result) => {
+        if (err) {
+            console.error("❌ Error en MySQL:", err.message);
+            
+            // Si el error dice que la columna 'nombre' no existe, probamos automáticamente con 'material'
+            if (err.message.includes("Unknown column 'nombre'")) {
+                const sqlFallback = `INSERT INTO materia_prima (material, cantidad_stock, unidad_medida) VALUES (?, ?, ?)`;
+                return pool.query(sqlFallback, [material, cantidad_stock, unidad_medida], (errFallback, resultFallback) => {
+                    if (errFallback) {
+                        return res.status(500).json({ mensaje: `Error de BD: ${errFallback.message}` });
+                    }
+                    return res.status(201).json({ mensaje: "Creado", id: resultFallback.insertId });
+                });
+            }
+            
+            // Si es otro error (como que falta una llave), lo mandamos en JSON limpio para que el frontend no reviente
+            return res.status(500).json({ mensaje: `Error de Base de Datos: ${err.message}` });
+        }
+        res.status(201).json({ mensaje: "Creado", id: result.insertId });
     });
 });
 
