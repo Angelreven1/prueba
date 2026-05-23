@@ -21,10 +21,11 @@ document.getElementById('form-login').addEventListener('submit', (e) => {
     })
     .then(data => {
         alert("¡Inicio de sesión correcto!");
+        
         // ========================================================
-        // 🚀 AQUÍ COLOCAS LAS LÍNEAS PARA GUARDAR EN EL NAVEGADOR
+        // 🚀 ALMACENAMIENTO ATÓMICO EN EL NAVEGADOR (CORREGIDO)
         // ========================================================
-        // Guardamos el rol y el nombre que el servidor de Render nos devuelve en 'data'
+        localStorage.setItem('usuario_id', data.usuario.id); // Captura el ID foráneo indispensable
         localStorage.setItem('usuario_rol', data.usuario.rol); 
         localStorage.setItem('usuario_nombre', data.usuario.nombre);
 

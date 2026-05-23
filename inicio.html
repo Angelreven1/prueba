@@ -75,6 +75,23 @@
                     <button class="btn-action btn-success" onclick="abrirModalLote()">➕ Registrar Lote de Producción</button>
                 </section>
 
+                <div id="contenedor-tablas-admin" style="margin-top: 25px; margin-bottom: 25px; display: none;" class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 id="titulo-tabla-dinamica" style="margin: 0; color: #38bdf8; width: 100%;">Visualizador de Datos</h3>
+                        <button onclick="document.getElementById('contenedor-tablas-admin').style.display='none'" style="background: #ef4444; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85rem; margin-left: 15px;">✕ Cerrar</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="data-table" id="tabla-dinamica-admin">
+                            <thead>
+                                <tr id="encabezado-tabla-dinamica">
+                                    </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <section class="stats-grid-advanced">
                     <div class="card alert-card">
                         <h4>Alertas de Stock Bajo</h4>
@@ -119,10 +136,7 @@
                 <div class="form-group">
                     <label for="lote-producto">Modelo de Tenis:</label>
                     <select id="lote-producto" required>
-                        <option value="1">Smash Pro Volley</option>
-                        <option value="2">Aero Court Speed</option>
-                        <option value="3">Classic Club Leather</option>
-                    </select>
+                        </select>
                 </div>
                 <div class="form-group">
                     <label for="lote-talla">Talla (MX):</label>
