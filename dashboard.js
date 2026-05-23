@@ -4,13 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const nombre = localStorage.getItem('usuario_nombre') || 'Usuario';
     const rol = (localStorage.getItem('usuario_rol') || '').toLowerCase(); 
 
-    // Colocar el nombre en la interfaz si existe el elemento
     const infoUsuario = document.getElementById('nombre-usuario');
     if (infoUsuario) {
         infoUsuario.innerText = `${nombre} (${rol.toUpperCase()})`;
     }
 
-    // Control de acceso dinámico por Roles
     if (rol === 'admin') {
         document.getElementById('dashboard-admin').style.display = 'block';
         initDashboardAdmin();
@@ -22,49 +20,36 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'index.html'; 
     }
 
-    // Configurar el envío automático del formulario del nuevo lote modal
     const formLote = document.getElementById('form-nuevo-lote');
-    if (formLote) {
-        formLote.addEventListener('submit', registrarLoteBaseDatos);
-    }
+    if (formLote) formLote.addEventListener('submit', registrarLoteBaseDatos);
+
+    const formPersonal = document.getElementById('form-nuevo-personal');
+    if (formPersonal) formPersonal.addEventListener('submit', registrarPersonalBaseDatos);
+
+    const formMateria = document.getElementById('form-nueva-materia');
+    if (formMateria) formMateria.addEventListener('submit', registrarMateriaBaseDatos);
 });
 
-// ========================================================
-// LÓGICA PARA EL DASHBOARD DEL OPERADOR (USER)
-// ========================================================
 function initDashboardUser() {
-    console.log("Inicializando vista operativa de usuario...");
     document.getElementById('user-prod-dia').innerText = "180 pares"; 
 }
 
-// ========================================================
-// LÓGICA PARA EL DASHBOARD DEL ADMINISTRADOR (ADMIN)
-// ========================================================
 async function initDashboardAdmin() {
-    console.log("Inicializando paneles avanzados de administrador...");
     document.getElementById('admin-alertas').innerText = "2 (Suela Goma, Hilo Blanco)";
-
-    // Intentar traer los datos desde el servidor en línea
     try {
-        const response = await fetch(`${BACKEND_URL}/api/produccion/resumen-graficas`);
-        const data = await response.json();
-        construirGrafica(data.fechas, data.cantidades);
-    } catch (error) {
-        console.warn("No se pudo conectar a la API remota aún. Usando Mock Data para desarrollo.");
-        
+        await fetch(`${BACKEND_URL}/ordenes`);
         const fechasSimuladas = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
         const produccionSimulada = [120, 150, 95, 210, 180]; 
-        
+        construirGrafica(fechasSimuladas, produccionSimulada);
+    } catch (error) {
+        const fechasSimuladas = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+        const produccionSimulada = [120, 150, 95, 210, 180]; 
         construirGrafica(fechasSimuladas, produccionSimulada);
     }
 }
 
-// ========================================================
-// CONFIGURACIÓN Y DESPLIEGUE DE CHART.JS
-// ========================================================
 function construirGrafica(etiquetas, datosValores) {
     const ctx = document.getElementById('graficaProduccionAdmin').getContext('2d');
-    
     new Chart(ctx, {
         type: 'bar', 
         data: {
@@ -73,80 +58,105 @@ function construirGrafica(etiquetas, datosValores) {
                 label: 'Lotes de Calzado Producidos (Pares)',
                 data: datosValores, 
                 backgroundColor: [
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(153, 102, 255, 0.6)',
-                    'rgba(255, 99, 132, 0.6)'
+                    'rgba(54, 162, 235, 0.6)', 'rgba(75, 192, 192, 0.6)',
+                    'rgba(255, 206, 86, 0.6)', 'rgba(153, 102, 255, 0.6)', 'rgba(255, 99, 132, 0.6)'
                 ],
                 borderColor: [
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 99, 132, 1)'
+                    'rgba(54, 162, 235, 1)', 'rgba(75, 192, 192, 1)',
+                    'rgba(255, 206, 86, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 99, 132, 1)'
                 ],
                 borderWidth: 1
             }]
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    beginAtZero: true 
-                }
-            }
-        }
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
     });
 }
 
-// ========================================================
-// INTERACTIVIDAD FUNCIONAL CON SQLITE DESDE EL FRONTEND
-// ========================================================
-function abrirModalLote() {
-    document.getElementById('modal-lote').style.display = 'flex';
-}
+function abrirModalLote() { document.getElementById('modal-lote').style.display = 'flex'; }
+function cerrarModalLote() { document.getElementById('modal-lote').style.display = 'none'; document.getElementById('form-nuevo-lote').reset(); }
 
-function cerrarModalLote() {
-    document.getElementById('modal-lote').style.display = 'none';
-    document.getElementById('form-nuevo-lote').reset();
-}
+function abrirModalPersonal() { document.getElementById('modal-personal').style.display = 'flex'; }
+function cerrarModalPersonal() { document.getElementById('modal-personal').style.display = 'none'; document.getElementById('form-nuevo-personal').reset(); }
+
+function abrirModalMateria() { document.getElementById('modal-materia').style.display = 'flex'; }
+function cerrarModalMateria() { document.getElementById('modal-materia').style.display = 'none'; document.getElementById('form-nueva-materia').reset(); }
 
 function registrarLoteBaseDatos(e) {
     e.preventDefault();
-
-    // Estructura adaptada a las claves foráneas obligatorias de tu base de datos
     const payloadLote = {
         producto_id: parseInt(document.getElementById('lote-producto').value),
         talla: parseFloat(document.getElementById('lote-talla').value),
-        color: document.getElementById('lote-color').value,
+        color: document.getElementById('lote-color').value.trim(),
         cantidad: parseInt(document.getElementById('lote-cantidad').value),
-        usuario_id: localStorage.getItem('usuario_id') || 1 // Respaldo por si falta enlazar la ID
+        usuario_id: parseInt(localStorage.getItem('usuario_id')) || 1 
     };
 
-    fetch(`${BACKEND_URL}/api/produccion/registrar-lote`, {
+    fetch(`${BACKEND_URL}/ordenes`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payloadLote)
     })
-    .then(res => {
-        if (!res.ok) throw new Error('Error de comunicación con Render.');
-        return res.json();
+    .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.mensaje || 'Error en el servidor.');
+        return data;
     })
     .then(data => {
-        alert('🎉 ¡Lote registrado con éxito! El stock se sincronizó con SQLite.');
+        alert('🎉 ¡Lote registrado con éxito! El stock se actualizó en MySQL.');
         cerrarModalLote();
     })
-    .catch(err => {
-        console.error(err);
-        // Respaldo visual interactivo funcional para las revisiones locales
-        alert(`¡Modo Captura Local Operativo!\n\nSe procesó la orden en la interfaz:\n• Producto ID: ${payloadLote.producto_id}\n• Talla: ${payloadLote.talla}\n• Color: ${payloadLote.color}\n• Cantidad: ${payloadLote.cantidad} pares.`);
-        cerrarModalLote();
-    });
+    .catch(err => { alert(`❌ Error al insertar orden: ${err.message}`); });
 }
 
-function cerrarSesion() {
-    localStorage.clear();
-    window.location.href = 'index.html'; 
+function registrarPersonalBaseDatos(e) {
+    e.preventDefault();
+    const payloadPersonal = {
+        nombre: document.getElementById('personal-nombre').value.trim(),
+        correo: document.getElementById('personal-correo').value.trim(),
+        contrasena: document.getElementById('personal-contrasena').value,
+        rol: document.getElementById('personal-rol').value
+    };
+
+    fetch(`${BACKEND_URL}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payloadPersonal)
+    })
+    .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.mensaje || 'Error al guardar.');
+        return data;
+    })
+    .then(data => {
+        alert('🎉 ¡Colaborador dado de alta exitosamente!');
+        cerrarModalPersonal();
+    })
+    .catch(err => { alert(`❌ Error al registrar colaborador: ${err.message}`); });
 }
+
+function registrarMateriaBaseDatos(e) {
+    e.preventDefault();
+    const payloadMateria = {
+        material: document.getElementById('materia-nombre').value.trim(),
+        cantidad_stock: parseInt(document.getElementById('materia-stock').value),
+        unidad_medida: document.getElementById('materia-unidad').value.trim()
+    };
+
+    fetch(`${BACKEND_URL}/materiaprima`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payloadMateria)
+    })
+    .then(async res => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.mensaje || 'Error al guardar insumo.');
+        return data;
+    })
+    .then(data => {
+        alert('🎉 ¡Insumo registrado con éxito!');
+        cerrarModalMateria();
+    })
+    .catch(err => { alert(`❌ Error al guardar insumo: ${err.message}`); });
+}
+
+function cerrarSesion() { localStorage.clear(); window.location.href = 'index.html'; }
