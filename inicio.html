@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Inteligente - Fábrica de Tenis</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_inicio.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <main class="dashboard-container">
+
+        <aside class="profile-card">
+            <h2>Smart Manufacturing Manager 👟</h2>
+            <p id="nombre-usuario" style="font-weight: bold; margin-bottom: 20px;">Cargando...</p>
+            <button onclick="cerrarSesion()">Cerrar Sesión</button>
+        </aside>
+
+        <div class="right-content-area">
+
+            <div id="dashboard-user" style="display: none;">
+                <section class="stats-grid">
+                    <div class="card">
+                        <h4>Producción del Día</h4>
+                        <p class="stat-number" id="user-prod-dia">180 pares</p>
+                    </div>
+                    <div class="card">
+                        <h4>Estado del Inventario General</h4>
+                        <p class="stat-desc">Materia prima disponible para la jornada operativa.</p>
+                    </div>
+                </section>
+
+                <section class="card table-section" style="margin-top: 20px;">
+                    <h3>Historial de Actividad Reciente en Planta 🕒</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Hora</th>
+                                <th>Acción / Movimiento</th>
+                                <th>Línea</th>
+                                <th>Responsable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>21:15</td>
+                                <td>Lote finalizado: 50 pares de Tenis Running Neo</td>
+                                <td>Línea A</td>
+                                <td>Sistema</td>
+                            </tr>
+                            <tr>
+                                <td>19:30</td>
+                                <td>Retiro de materia prima: 30kg de Suela de Goma</td>
+                                <td>Almacén</td>
+                                <td>M. Juárez</td>
+                            </tr>
+                            <tr>
+                                <td>17:00</td>
+                                <td>Lote finalizado: 40 pares de Tenis Urban Casual</td>
+                                <td>Línea B</td>
+                                <td>Sistema</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+
+            <div id="dashboard-admin" style="display: none;">
+                
+                <section class="admin-quick-actions" style="margin-bottom: 25px;">
+                    <button class="btn-action" onclick="abrirModalPersonal()">👥 Gestión de Personal / Usuarios</button>
+                    <button class="btn-action" onclick="abrirModalMateria()">📦 Control de Materia Prima</button>
+                    <button class="btn-action btn-success" onclick="abrirModalLote()">➕ Registrar Lote de Producción</button>
+                </section>
+
+                <div id="contenedor-tablas-admin" style="margin-top: 25px; margin-bottom: 25px; display: none;" class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 id="titulo-tabla-dinamica" style="margin: 0; color: #38bdf8; width: 100%;">Visualizador de Datos</h3>
+                        <button onclick="document.getElementById('contenedor-tablas-admin').style.display='none'" style="background: #ef4444; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85rem; margin-left: 15px;">✕ Cerrar</button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table class="data-table" id="tabla-dinamica-admin">
+                            <thead>
+                                <tr id="encabezado-tabla-dinamica">
+                                    </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <section class="stats-grid-advanced">
+                    <div class="card alert-card">
+                        <h4>Alertas de Stock Bajo</h4>
+                        <p class="stat-number" id="admin-alertas">0 materiales</p>
+                    </div>
+                    <div class="card">
+                        <h4>Líneas de Producción Activas</h4>
+                        <p class="stat-number">Línea A, B y C</p>
+                    </div>
+                </section>
+
+                <section class="chart-section">
+                    <h3>Producción Histórica Semanal (Modelos de Tenis)</h3>
+                    <div class="chart-container" style="position: relative; height:40vh; width:100%">
+                        <canvas id="graficaProduccionAdmin"></canvas>
+                    </div>
+                </section>
+            </div>
+
+            <section class="ia-chat-box">
+                <h3>Asistente Inteligente de Producción (Gemini AI)</h3>
+                
+                <div id="chat-historial" class="chat-window">
+                    <p style="color: #64748b; text-align: center; margin-top: 45px; font-style: italic; font-family: Arial, sans-serif;">
+                        El asistente de IA está listo. Haz una pregunta sobre el inventario de suelas, telas o la producción semanal de tenis...
+                    </p>
+                </div>
+    
+                <div class="chat-input-area">
+                    <input type="text" id="pregunta-ia" placeholder="Pregúntale a la IA sobre la producción...">
+                    <button id="btn-preguntar" type="button">Enviar</button>
+                </div>
+            </section>
+
+        </div> 
+    </main>
+
+    <div id="modal-lote" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3>Registrar Nuevo Lote de Producción 👟</h3>
+            <form id="form-nuevo-lote">
+                <div class="form-group">
+                    <label for="lote-producto">Modelo de Tenis:</label>
+                    <select id="lote-producto" required>
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="lote-talla">Talla (MX):</label>
+                    <input type="number" id="lote-talla" step="0.5" min="22" max="32" placeholder="Ej. 26.5" required>
+                </div>
+                <div class="form-group">
+                    <label for="lote-color">Color:</label>
+                    <input type="text" id="lote-color" placeholder="Ej. blanco" required>
+                </div>
+                <div class="form-group">
+                    <label for="lote-cantidad">Cantidad (Pares):</label>
+                    <input type="number" id="lote-cantidad" min="1" placeholder="Ej. 50" required>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn-cancel" onclick="cerrarModalLote()">Cancelar</button>
+                    <button type="submit" class="btn-submit-form">Guardar en Base de Datos</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-personal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3>Registrar Nuevo Colaborador 👥</h3>
+            <form id="form-nuevo-personal">
+                <div class="form-group">
+                    <label for="personal-nombre">Nombre Completo:</label>
+                    <input type="text" id="personal-nombre" placeholder="Ej. Roberto Gómez" required>
+                </div>
+                <div class="form-group">
+                    <label for="personal-correo">Correo Electrónico:</label>
+                    <input type="email" id="personal-correo" placeholder="ejemplo@smarttenis.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="personal-contrasena">Contraseña Temporal:</label>
+                    <input type="password" id="personal-contrasena" placeholder="Mínimo 6 caracteres" required>
+                </div>
+                <div class="form-group">
+                    <label for="personal-rol">Rol asignado:</label>
+                    <select id="personal-rol" required>
+                        <option value="user">Operario / Planta</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn-cancel" onclick="cerrarModalPersonal()">Cancelar</button>
+                    <button type="submit" class="btn-submit-form">Dar de Alta Operario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-materia" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3>Ingresar Insumo / Materia Prima 📦</h3>
+            <form id="form-nueva-materia">
+                <div class="form-group">
+                    <label for="materia-nombre">Nombre del Insumo:</label>
+                    <input type="text" id="materia-nombre" placeholder="Ej. Suela Goma, Hilo Blanco" required>
+                </div>
+                <div class="form-group">
+                    <label for="materia-stock">Cantidad Inicial en Stock:</label>
+                    <input type="number" id="materia-stock" min="0" placeholder="Ej. 500" required>
+                </div>
+                <div class="form-group">
+                    <label for="materia-unidad">Unidad de Medida:</label>
+                    <input type="text" id="materia-unidad" placeholder="Ej. pza, kg, m" required>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn-cancel" onclick="cerrarModalMateria()">Cancelar</button>
+                    <button type="submit" class="btn-submit-form">Registrar Stock</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

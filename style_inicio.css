@@ -1,0 +1,279 @@
+/* ======================================================== */
+/* 1. CONFIGURACIÓN GENERAL Y CUERPO                        */
+/* ======================================================== */
+body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #f8fafc;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 280px 1fr; /* Dos columnas principales */
+    gap: 25px;
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: start;
+    font-family: Arial, sans-serif;
+}
+
+/* ======================================================== */
+/* 2. DISEÑO DE TARJETAS Y CONTENEDORES (CON SOMBRAS PREMIUM)*/
+/* ======================================================== */
+.profile-card, .ia-chat-box, .card, .chart-section {
+    background-color: #1e293b;
+    border-radius: 10px;
+    padding: 25px;
+    border: 1px solid #334155 !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2) !important;
+}
+
+.card {
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Encabezados de tarjetas */
+.profile-card h2, .profile-card h1 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #334155;
+    padding-bottom: 10px;
+    color: white;
+}
+
+/* ======================================================== */
+/* 3. BOTONES (CERRAR SESIÓN Y ACCIONES DEL ADMIN)          */
+/* ======================================================== */
+#dashboard-container button, .profile-card button {
+    width: 100%;
+    padding: 12px;
+    background-color: #ef4444; /* Rojo intuitivo */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background 0.2s;
+}
+
+.profile-card button:hover {
+    background-color: #dc2626;
+}
+
+/* Botonera de acciones rápidas del Admin */
+.admin-quick-actions {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.btn-action {
+    flex: 1;
+    padding: 14px 20px;
+    background-color: #334155;
+    color: white;
+    border: 1px solid #475569;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.btn-action:hover {
+    background-color: #475569;
+    transform: translateY(-2px);
+}
+
+/* Botón especial verde para registrar producción */
+.btn-success {
+    background-color: #10b981 !important;
+    border: none !important;
+}
+
+.btn-success:hover {
+    background-color: #059669 !important;
+}
+
+/* ======================================================== */
+/* 4. SECCIÓN DEL CHAT DE INTELIGENCIA ARTIFICIAL          */
+/* ======================================================== */
+.chat-window {
+    min-height: 150px;
+    background-color: #0f172a;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #1e293b;
+    overflow-y: auto;
+}
+
+.chat-input-area {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 12px !important;
+    width: 100% !important; 
+    box-sizing: border-box !important;
+    align-items: center !important;
+    margin-top: 15px;
+}
+
+.chat-input-area input {
+    display: block !important;
+    flex: 1 !important; /* Estira el input por completo */
+    width: 100% !important;
+    padding: 12px !important;
+    border-radius: 6px !important;
+    border: 1px solid #475569 !important;
+    background-color: #0f172a !important;
+    color: white !important;
+    font-size: 1rem !important;
+    box-sizing: border-box !important;
+}
+
+.chat-input-area button {
+    display: inline-block !important;
+    width: auto !important; /* Evita que el botón se ensanche */
+    min-width: 100px !important;
+    height: 42px !important;
+    padding: 0 24px !important;
+    background-color: #2563eb !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 6px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.chat-input-area button:hover {
+    background-color: #1d4ed8 !important;
+}
+
+/* ======================================================== */
+/* 5. DISTRIBUCIÓN COLUMNA DERECHA Y TABLAS                 */
+/* ======================================================== */
+.right-content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.stats-grid-advanced, .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Estilos de la tabla de control industrial */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 0.95rem;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #0f172a;
+    color: #38bdf8; /* Detalle azul brillante */
+    padding: 12px;
+    font-weight: bold;
+    border-bottom: 2px solid #334155;
+}
+
+.data-table td {
+    padding: 12px;
+    border-bottom: 1px solid #334155;
+    color: #cbd5e1;
+}
+
+.data-table tbody tr:hover {
+    background-color: #0f172a;
+}
+
+/* ======================================================== */
+/* 6. ESTILOS DE LA VENTANA MODAL (FORMULARIO EMERGENTE)    */
+/* ======================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #1e293b;
+    padding: 30px;
+    border-radius: 12px;
+    width: 400px;
+    border: 1px solid #475569;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #38bdf8;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+}
+
+.form-group input, .form-group select {
+    padding: 10px;
+    background-color: #0f172a;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    color: white;
+    font-size: 1rem;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.btn-cancel {
+    background-color: #475569 !important;
+    margin-top: 0 !important;
+}
+
+.btn-cancel:hover {
+    background-color: #334155 !important;
+}
+
+.btn-submit-form {
+    background-color: #10b981 !important;
+    margin-top: 0 !important;
+}
+
+.btn-submit-form:hover {
+    background-color: #059669 !important;
+}

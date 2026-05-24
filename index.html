@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Acceso - Smart Tennis Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container-flex">
+        
+        <div class="box">
+            <h2>Iniciar Sesión</h2>
+            <form id="form-login">
+                <div class="form-group">
+                    <label for="input-correo">Correo Electrónico</label>
+                    <input type="email" id="input-correo" placeholder="ejemplo@tenis.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-pass">Contraseña</label>
+                    <input type="password" id="input-pass" placeholder="********" required>
+                </div>
+
+                <button type="submit">Entrar al Sistema</button>
+                <p id="mensaje-error" class="error-msg"></p>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>
