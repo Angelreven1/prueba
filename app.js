@@ -198,7 +198,7 @@ app.get('/materiaprima', (req, res) => {
 
 app.post('/materiaprima', (req, res) => {
     const { material, cantidad_stock, unidad_medida } = req.body;
-    const sql = `INSERT INTO materia_prima (material, cantidad_stock, unidad_medida) VALUES (?, ?, ?)`;
+    const sql = `INSERT INTO materia_prima (nombre, cantidad_stock, unidad_medida) VALUES (?, ?, ?)`;
     pool.query(sql, [material, cantidad_stock, unidad_medida], (err, result) => {
         if (err) return res.status(500).json({ mensaje: `Error de BD: ${err.message}` });
         res.status(201).json({ mensaje: "Creado", id: result.insertId });
